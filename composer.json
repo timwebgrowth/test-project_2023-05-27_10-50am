@@ -12,9 +12,11 @@
         }
     ],
     "require-dev": {
-        "phpunit/phpunit": "^7.5"
+        "phpunit/phpunit": "^7.5",
+        "ext-curl": "*"
     },
     "require": {
+        "phpunit/phpunit": "^7.5",
         "ext-curl": "*"
     }
 }
