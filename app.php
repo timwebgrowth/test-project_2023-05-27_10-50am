@@ -19,7 +19,6 @@ echo "'https://api.apilayer.com/exchangerates_data/latest' \n";
 echo "The key have only 100 free requests. And currently is enabled in 'config.php'. \n";
 echo "If the key will expire, you will need to set a key value to 'false' in 'config.php' so the data would be used from 'rates.txt' file \n";
 
-
 $inputFile = $argv[1];
 $transactions = file($inputFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
