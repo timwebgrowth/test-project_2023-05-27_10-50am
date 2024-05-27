@@ -1,0 +1,17 @@
+{
+    "name": "tim/groupbwt_test_project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "tim",
+            "email": "timwebgrowth@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
+    }
+}

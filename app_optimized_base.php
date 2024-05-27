@@ -1,4 +1,5 @@
 <?php
+require_once 'vendor/autoload.php';
 
 function curlRequest($url) {
     $curl = curl_init();
