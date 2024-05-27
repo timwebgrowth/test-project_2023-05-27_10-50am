@@ -8,10 +8,16 @@ class CurlRequestHandler
 {
     public function sendRequest($url, $headers = [])
     {
+
+        if (empty($url)) {
+            throw new Exception("URL cannot be empty.");
+        }
+
         $curl = curl_init();
         curl_setopt_array($curl, [
             CURLOPT_URL => $url,
             CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_TIMEOUT => 5,
             CURLOPT_RETURNTRANSFER => true,
         ]);
         $response = curl_exec($curl);
@@ -24,7 +30,20 @@ class CurlRequestHandler
             curl_close($curl);
             throw new Exception($errorMessage);
         }
+
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        if ($httpCode >= 400) {
+            $errorMessage = "Request failed with HTTP status code: " . $httpCode;
+            curl_close($curl);
+            throw new Exception($errorMessage);
+        }
+
         curl_close($curl);
+
+        if (empty($response)) {
+            throw new Exception("Empty response received.");
+        }
+
         return $response;
     }
 }

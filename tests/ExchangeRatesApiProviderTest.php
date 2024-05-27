@@ -42,5 +42,8 @@ class ExchangeRatesApiProviderTest extends TestCase
         $this->assertNotFalse($response);
         $this->assertIsFloat($response);
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Exchange rate not found for currency: XYZ');
+        $this->exchangeRatesApiProvider->getExchangeRate('XYZ');
     }
 }

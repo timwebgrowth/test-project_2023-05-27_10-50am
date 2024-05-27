@@ -44,4 +44,19 @@ class BinListNetProviderTest extends TestCase
             $this->assertEquals($result, $assertResult, "Failed testIsEu for binId: $binId");
         }
     }
+
+    public function testGetBinDataWithEmptyBinId()
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid BIN ID.');
+        $this->binProvider->getBinData('');
+    }
+
+    public function testGetBinDataWithNonNumericBinId()
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid BIN ID.');
+        $this->binProvider->getBinData('abc');
+    }
+
 }

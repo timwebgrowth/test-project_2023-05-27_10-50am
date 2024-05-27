@@ -15,4 +15,22 @@ class CurlRequestHandlerTest extends TestCase
 
         $this->assertIsString($response);
     }
+
+    public function testSendRequestWithEmptyUrl()
+    {
+        $curlRequestHandler = new CurlRequestHandler();
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('URL cannot be empty.');
+        $curlRequestHandler->sendRequest('');
+    }
+
+    public function testSendRequestWithInvalidUrl()
+    {
+        $curlRequestHandler = new CurlRequestHandler();
+        $url = 'http://invalid-url';
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Failed request: ' . $url);
+        $curlRequestHandler->sendRequest($url);
+    }
+
 }
