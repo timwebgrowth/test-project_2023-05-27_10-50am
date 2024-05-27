@@ -18,19 +18,17 @@ class ExchangeRatesApiProvider implements CurrencyRatesProvider
 
     public function getExchangeRates()
     {
-        if ($this->apiKey) {
-// The original endpoint for exchange rates was not working for me, so I had to create API key for it is mirror service.
-// Can be enabled in a 'config.php'
-            $url = "https://api.apilayer.com/exchangerates_data/latest";
-            $headers = [
-                "Content-Type: text/plain",
-                "apikey: " . $this->apiKey
-            ];
-            $response = $this->requestHandler->sendRequest($url, $headers);
-        } else {
-            $response = file_get_contents("rates.txt");
+
+        if (!$this->apiKey) {
+            throw new Exception('API Key is not set in "config.php" file.');
         }
-        return json_decode($response, true);
+
+        $url = "http://api.exchangeratesapi.io/v1/latest?access_key=".$this->apiKey;
+        $response = $this->requestHandler->sendRequest($url);
+
+        $response = json_decode($response, true);
+
+        return $response;
     }
 
     public function getExchangeRate($currency)

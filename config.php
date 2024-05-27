@@ -1,7 +1,6 @@
 <?php
-// Key for https://api.apilayer.com/exchangerates_data/latest API
-// 3JrTcVfETVTLcIY2a3QADWCQ0Ba3TqUH, 100 requests only
-// If key will expire, put here 'false' to use a data from 'rates.txt'
+// 1273ecc6304d648f9d4995fed388c88f, 250 requests only
+// If expire, use your own or register new key with 'https://exchangeratesapi.io/'
 return [
-    'exchangeRatesApiKey' => '3JrTcVfETVTLcIY2a3QADWCQ0Ba3TqUH',
+    'exchangeRatesApiKey' => '1273ecc6304d648f9d4995fed388c88f',
 ];

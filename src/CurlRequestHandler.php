@@ -34,6 +34,9 @@ class CurlRequestHandler
         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         if ($httpCode >= 400) {
             $errorMessage = "Request failed with HTTP status code: " . $httpCode;
+            if($httpCode === 401){
+                $errorMessage .= "\n" . "Bad API key, check key in 'config.php'";
+            }
             curl_close($curl);
             throw new Exception($errorMessage);
         }
