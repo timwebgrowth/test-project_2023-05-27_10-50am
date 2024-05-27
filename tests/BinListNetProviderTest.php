@@ -11,7 +11,7 @@ class BinListNetProviderTest extends TestCase
 {
 
     protected function setUp(): void {
-        $curlRequestHandler = $this->createMock(CurlRequestHandler::class);
+        $curlRequestHandler = new CurlRequestHandler();
         $this->binProvider = new BinListNetProvider($curlRequestHandler);
     }
 
@@ -37,7 +37,6 @@ class BinListNetProviderTest extends TestCase
             '45417360' => true,
             '41417360' => false
         );
-        $expectedResults = [true, false, true, false];
 
         foreach ($binCheckArr as $binId => $assertResult) {
             $result = $this->binProvider->isEu($binId);

@@ -5,6 +5,7 @@ require_once 'vendor/autoload.php';
 use App\CurlRequestHandler;
 use App\ExchangeRatesApiProvider;
 use App\BinListNetProvider;
+use App\CalculationController;
 use PHPUnit\Framework\TestCase;
 
 class CalculationControllerTest extends TestCase

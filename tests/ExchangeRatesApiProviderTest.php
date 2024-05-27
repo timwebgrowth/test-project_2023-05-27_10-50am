@@ -11,9 +11,7 @@ class ExchangeRatesApiProviderTest extends TestCase
 
     protected function setUp(): void {
         $this->curlRequestHandler = new CurlRequestHandler();
-        //        I know that this is ugly... But again it is either API key or file with example data
-        $apiKey = false;
-        $this->exchangeRatesApiProvider = new ExchangeRatesApiProvider($this->curlRequestHandler, $apiKey);
+        $this->exchangeRatesApiProvider = new ExchangeRatesApiProvider($this->curlRequestHandler);
     }
 
     public function testGetExchangeRates() {
