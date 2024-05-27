@@ -13,21 +13,14 @@ $binProvider = new BinListNetProvider($curlRequestHandler);
 $calculationController = new CalculationController($currencyRatesProvider, $binProvider);
 
 $inputFile = $argv[1];
-$transactions = explode("\n", file_get_contents($inputFile));
+$transactions = file($inputFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
 foreach ($transactions as $transaction) {
     try {
-        if (empty($transaction)) {
-            continue;
-        }
         $transactionData = json_decode($transaction, true);
-
-        $amountWithComission = $calculationController->calculate($transactionData);
-
-        echo $amountWithComission;
-        print "\n";
+        $amountWithCommission = $calculationController->calculate($transactionData);
+        echo $amountWithCommission . "\n";
     } catch (\Exception $e) {
-        echo "Error: " . $e->getMessage();
-        print "\n";
+        echo "Error: " . $e->getMessage() . "\n";
     }
 }

@@ -6,7 +6,8 @@ use Exception;
 
 class CurlRequestHandler
 {
-    public function sendRequest($url, $headers = []) {
+    public function sendRequest($url, $headers = [])
+    {
         $curl = curl_init();
         curl_setopt_array($curl, [
             CURLOPT_URL => $url,
@@ -14,7 +15,7 @@ class CurlRequestHandler
             CURLOPT_RETURNTRANSFER => true,
         ]);
         $response = curl_exec($curl);
-        if (!$response) {
+        if ($response === false) {
             $errorMessage = "Failed request: " . $url;
             $curlError = curl_error($curl);
             if ($curlError) {

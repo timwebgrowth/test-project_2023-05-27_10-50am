@@ -1,6 +1,6 @@
 <?php
 
-// The ExchangeRatesApiProvider needs a provided valid API key on 'config.php'
+// The ExchangeRatesApiProvider needs a provided valid API key in 'config.php'
 // for 'https://api.apilayer.com/exchangerates_data/latest' to work. Otherwise, it uses the "rates.txt" file.
 // The endpoint "https://api.exchangeratesapi.io/latest" asks for an API key. I have found that it is a mirror
 // for 'https://api.apilayer.com/exchangerates_data/latest'. I created my own key there and got example data for
@@ -10,21 +10,20 @@
 
 namespace App;
 
-class ExchangeRatesApiProvider implements CurrencyRatesProvider {
+class ExchangeRatesApiProvider implements CurrencyRatesProvider
+{
     private $requestHandler;
     private $apiKey;
 
-    public function __construct(CurlRequestHandler $curlRequestHandler) {
+    public function __construct(CurlRequestHandler $curlRequestHandler)
+    {
         $this->requestHandler = $curlRequestHandler;
         $config = require 'config.php';
-        if (isset($config['exchangeRatesApiKey'])) {
-            $this->apiKey = $config['exchangeRatesApiKey'];
-        } else {
-            $this->apiKey = false;
-        }
+        $this->apiKey = $config['exchangeRatesApiKey'] ?? false;
     }
 
-    public function getExchangeRates() {
+    public function getExchangeRates()
+    {
         if ($this->apiKey) {
             $url = "https://api.apilayer.com/exchangerates_data/latest";
             $headers = [
@@ -38,8 +37,12 @@ class ExchangeRatesApiProvider implements CurrencyRatesProvider {
         return json_decode($response, true);
     }
 
-    public function getExchangeRate($currency) {
+    public function getExchangeRate($currency)
+    {
         $allRates = $this->getExchangeRates();
+        if (!isset($allRates['rates'][$currency])) {
+            throw new \Exception('Exchange rate not found for currency: ' . $currency);
+        }
         return $allRates['rates'][$currency];
     }
 }

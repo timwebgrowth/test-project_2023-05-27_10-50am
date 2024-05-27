@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Exception;
+
 class BinListNetProvider implements BinProvider {
     private $requestHandler;
 
